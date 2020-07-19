@@ -1,0 +1,30 @@
+---
+layout: default
+title: Newsletters
+---
+<div class="row">
+    <div class="col-md-8">
+        {% for post in site.posts %}
+        <div class="blog-post-prev">
+            <h2 class="blog-post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+            <p class="blog-post-meta">
+                {{ post.date | date_to_string: "ordinal", "US" }} by {{ post.author }}
+            </p>
+            {{ post.excerpt | split: "</p>" | first }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-4">
+        {% for post in site.posts %}
+        {% assign currentdate = post.date | date: "%B %Y" %}
+        {% if currentdate != date %}
+        {% unless forloop.first %}</ul>{% endunless %}
+        <h4 id="y{{post.date | date: "%Y"}}">{{ currentdate }}</h4>
+        <ul>
+            {% assign date = currentdate %}
+            {% endif %}
+            <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+            {% if forloop.last %}</ul>{% endif %}
+        {% endfor %}
+    </div>
+</div>

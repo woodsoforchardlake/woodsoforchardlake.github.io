@@ -1,0 +1,31 @@
+- category: Painting
+  contractors:
+    - name: Painter Company
+      contact: 248-111-1111
+      reviews:
+        - reviewer: Jeff
+          review: Good company. 100% recommend.
+          date: 7/18/2020
+        - reviewer: Moh
+          review: Didn't like them.
+          date: 7/19/2020
+- category: Landscaping
+  contractors:
+    - name: Jeff's mowing
+      contact: 248-111-1111
+      reviews:
+          - reviewer: Jeff
+            review: Good company. 100% recommend.
+            date: 7/18/2020
+          - reviewer: Moh
+            review: Didn't like them.
+            date: 7/19/2020
+    - name: Jeff's mowing 2
+      contact: 248-111-1111
+      reviews:
+          - reviewer: Jeff
+            review: Good company. 100% recommend.
+            date: 7/18/2020
+          - reviewer: Moh
+            review: Didn't like them.
+            date: 7/19/2020

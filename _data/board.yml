@@ -1,0 +1,12 @@
+- name: Jeff
+  position: CEO
+  image: assets/img/jeff.png
+  description: Description for Jeff
+- name: Moh
+  position: CEO
+  image: assets/img/jeff.png
+  description: Description for Moh
+- name: Jensen
+  position: CTO
+  image: assets/img/jeff.png
+  description: Description for Jensen
