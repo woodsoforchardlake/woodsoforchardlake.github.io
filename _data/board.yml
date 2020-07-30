@@ -10,3 +10,7 @@
   position: CTO
   image: assets/img/jeff.png
   description: Description for Jensen
+ - name: Name of a board member
+  position: CTO
+  image: assets/img/jeff.png
+  description: Description for a new board member
