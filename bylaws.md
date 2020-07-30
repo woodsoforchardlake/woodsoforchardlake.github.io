@@ -3,7 +3,7 @@ layout: default
 title: Bylaws and Restrictions
 ---
 
-WHEREAS, the undersigned, STEPHEN GRAND REVOCABLE INTER-VIVOS
+**WHEREAS**, the undersigned, STEPHEN GRAND REVOCABLE INTER-VIVOS
 TRUST, of 4850 Coolidge Highway, Royal Oak, Michigan 48073-1023 (hereinafter referred to
 as “Declarant”) is the owner in fee simple of the lands hereinafter described, and hereinafter
 referred to as the “Subdivision”, desires to create restrictions and rules and regulations to burden
