@@ -1,0 +1,134 @@
+---
+layout: default
+title: Important Information
+---
+<div class="file-downloads">
+    <div id="1aBbG4sdYedjVMSt369WMCuSJcuApwSZ8">
+        Loading...
+    </div>
+
+    <div id="1uaBKh05qEG1z_NXL6Z4RmpIuz9lkWYG1">
+        Loading...
+    </div>
+
+    <div id="1C2cVxAmbBm2ojzAiaSzicqv5OqeCK2Tc">
+        Loading...
+    </div>
+</div>
+
+<script type="text/javascript">
+    var CLIENT_ID = '4593226507-1rive7o1qnqt9aibsu0fvn3arkg8vvt4.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyCBp12rszh1Xqi6wJ2cGUlOnJTyQ0RthP8';
+
+    // Array of API discovery doc URLs used (Google Drive v3 API)
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+
+    // Authorization scope(s) required by the API
+    var SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+
+    // ID of Google Drive root folder (files are pulled from its subfolders)
+    var BASE_DIR_ID = '1hcvgYMxWmiSoYCQCpbIls5cGwLOPLJCB';
+
+    /**
+     *  Initialize the API client library and scan for folders
+     */
+    function initClient() {
+        gapi.client.init({
+            apiKey: API_KEY,
+            clientId: CLIENT_ID,
+            discoveryDocs: DISCOVERY_DOCS,
+            scope: SCOPES
+        }).then(function () {
+            return gapi.client.drive.files.list({
+                'pageSize': 10,
+                'fields': "files(id, name, mimeType, webViewLink)",
+                'q': `'${BASE_DIR_ID}' in parents`
+            });
+        }).then(function(response) {
+            console.log(response.result);
+            for (const item of response.result.files) {
+                if (item.mimeType === "application/vnd.google-apps.folder") {
+                    populateFolder(item.id, item.name, item.webViewLink);
+                }
+            }
+        }, function(error) {
+            console.log(JSON.stringify(error, null, 2));
+        });
+    }
+
+    function populateFolder(id, name, url) {
+        const element = document.getElementById(id);
+        if (!element) {
+            console.log(`No element exists to put files from '${ name }' (${ id })`)
+            return;
+        }
+        gapi.client.drive.files.list({
+            'pageSize': 10,
+            'orderBy': "recency",
+            'fields': "files(webViewLink, mimeType, name)",
+            'q': `'${id}' in parents`
+        }).then(function(response) {
+            console.log(response.result);
+            let files = response.result.files
+            if (files && files.length > 0) {
+                element.innerHTML = "";
+                for (const item of files) {
+                    const entry = document.createElement('a');
+                    entry.setAttribute('href', item.webViewLink)
+                    entry.setAttribute('target', '_blank')
+                    entry.innerHTML = buildFileHTML(item);
+                    element.appendChild(entry);
+                }
+            } else {
+                element.innerHTML = "No files found.";
+            }
+            element.insertAdjacentHTML('beforeend', `
+    <small class="d-block text-right mt-3">
+        <a href="${ url }">All ${ name }</a>
+    </small>
+`)
+            element.insertAdjacentHTML('afterbegin', `
+    <h6 class="border-bottom border-gray pb-2 mb-0">${ name }</h6>
+`)
+        }, function(error) {
+            console.log(JSON.stringify(error, null, 2));
+        })
+    }
+
+    function buildFileHTML(file) {
+        return `
+<div class="media text-muted pt-3">
+${ getIcon(file.mimeType) }
+<p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+    <strong class="d-block text-gray-dark">${ file.name }</strong>
+</p>
+</div>
+`
+    }
+
+    function getIcon(mimeType) {
+        switch (mimeType) {
+            case "application/pdf":
+            case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                return `
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+<path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+<path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+</svg>
+                `
+            default:
+                return `
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+<path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+</svg>
+`
+        }
+    }
+</script>
+
+<script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};gapi.load('client', initClient);"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>

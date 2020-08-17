@@ -17,6 +17,19 @@ body {
   margin-bottom: 0;
 }
 
+.file-downloads>div {
+  @extend .my-3;
+  @extend .p-3;
+  @extend .bg-light;
+  @extend .rounded;
+  @extend .shadow;
+}
+
+.file-downloads div svg {
+  @extend .mr-2;
+  font-size: 2em;
+}
+
 .blog-post-prev {
   margin-bottom: 4rem;
 }

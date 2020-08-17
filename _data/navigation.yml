@@ -2,12 +2,8 @@
   url: /board.html
 - title: Recommended Contractors
   url: /contractors.html
-- title: Bylaws and Restrictions
-  url: /bylaws.html
-- title: Newsletters
-  url: /newsletters.html
-- title: FAQs
-  url: /faq.html
+- title: Important Information
+  url: /important_info.html
 #  sublinks:
 #    - title: FAQ
 #      url: /faq.html
