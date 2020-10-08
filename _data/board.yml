@@ -4,7 +4,7 @@
   description: Test Tester Description for Jeff
 - name: Moh
   position: Test
-  image: assets/img/works.jpg
+  image: assets/img/Works.jpg
   description: Description for Moh
 - name: Jensen
   position: Web Developer
